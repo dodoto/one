@@ -1,6 +1,6 @@
 import {load} from 'cheerio'
 
-export type Content<T> = {ok: true; data: T} | {ok: false; error: unknown}
+export type Content<T> = {ok: true; data: T} | {ok: false; error: string}
 
 export type SearchResult = {
   title: string; 
@@ -31,11 +31,11 @@ const handleSuccess = <T>(data: T) => {
 }
 
 const handleError = (args: {ok: true; res: Response} | {ok: false; error: unknown}) => {
-  let error: unknown
+  let error: string
   if (args.ok) {
     error = `code: ${args.res.status}, text: ${args.res.statusText}`
   } else {
-    error = args.error
+    error = (args.error as any).message
   }
   return {
     props: {

@@ -11,7 +11,6 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { getChapterContentData, Content, ChapterContent } from '@/request'
-import { ReactNode } from 'react'
 
 const Chapter: NextPage<{content: Content<ChapterContent>}> = ({content}) => {
 
@@ -55,7 +54,7 @@ const Chapter: NextPage<{content: Content<ChapterContent>}> = ({content}) => {
     )
   } else {
     return (
-      <Text>{content.error as ReactNode}</Text>
+      <Text>{content.error }</Text>
     )
   }
 }

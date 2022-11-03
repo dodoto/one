@@ -1,7 +1,7 @@
 import type { NextPage, NextPageContext } from 'next'
 import { Container, Wrap, WrapItem, Text, Link } from '@chakra-ui/react'
 import { getChapterListData, Chapter, Content } from '@/request'
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 
 type BookContent = Content<Chapter[]>
 
@@ -11,7 +11,7 @@ const Book: NextPage<{content: BookContent}> = ({content}) => {
       {
         content.ok ?
         <ChapterList data={content.data}/> :
-        <Text>{content.error as ReactNode}</Text>
+        <Text>{content.error}</Text>
       }
     </Container>
   )

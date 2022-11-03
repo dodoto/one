@@ -11,7 +11,7 @@ import {
   ListItem,
   Link,
 } from '@chakra-ui/react'
-import { FC, ReactNode } from 'react';
+import { FC } from 'react';
 import { getSearchData, SearchResult, Content } from '@/request'
 
 
@@ -30,7 +30,7 @@ const Search: NextPage<{content: SearchContent}> = ({content}) => {
         </FormControl>
       </Box>
       {
-        content.ok ? <SearchResultList data={content.data} /> : <Text>{content.error as ReactNode}</Text>
+        content.ok ? <SearchResultList data={content.data} /> : <Text>{content.error }</Text>
       }
     </Container>
   )
