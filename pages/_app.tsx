@@ -16,7 +16,7 @@ const ThemeModeToggleButton = () => {
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <Component {...pageProps}/>
       <ThemeModeToggleButton />
     </ChakraProvider>
   )

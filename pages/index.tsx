@@ -1,27 +1,56 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { Box, Flex, List, ListItem } from '@chakra-ui/react'
+import { Box, Wrap, WrapItem, Center, Container } from '@chakra-ui/react'
+
+
+// const breakpoints = {
+//   sm: '30em',    480
+//   md: '48em',    768
+//   lg: '62em',    992
+//   xl: '80em',    1280
+//   '2xl': '96em', 1536
+// }
+
+// const TestW = {
+//   base: '100%',
+//   md: '50%',
+//   lg: '33.3%',
+//   xl: '33.3%',
+//   '2xl': '33.3%',
+// }
+
+const TestW = ['100%', '50%', '33.3%']
+
 
 const Home: NextPage = () => {
 
   return (
     <Box minH="100vh">
-      <Flex>
-        <List>
-          <ListItem>
-            <Link href="/search">搜索</Link>
-          </ListItem>
-          <ListItem>
-            <Link href="/user/1">user 1</Link>
-          </ListItem>
-          <ListItem>
-            <Link href="user/2">user 2</Link>
-          </ListItem>
-          <ListItem>
-            <Link href="about">about</Link>
-          </ListItem>
-        </List>
-      </Flex>
+      <Container maxW="800px">
+        <Link href="/search">搜索</Link>
+        <Wrap spacing="0">
+          <WrapItem bg="red.200" w={TestW}> 
+            <Center>
+              box1
+            </Center>
+          </WrapItem>
+          <WrapItem bg="green.200" w={TestW}>
+            <Center>
+              box2
+            </Center>
+          </WrapItem>
+          <WrapItem bg="tomato" w={TestW}>
+            <Center>
+              box3
+            </Center>
+          </WrapItem>
+          <WrapItem bg="blue.200" w={TestW}>
+            <Center>
+              box4
+            </Center>
+          </WrapItem>
+        </Wrap>
+      </Container>
     </Box>
   )
 }

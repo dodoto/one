@@ -17,6 +17,7 @@
     "baseUrl": "./",
     "paths": {
       "@/request": ["request/index"],
+      "@/styles": ["styles/index"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
