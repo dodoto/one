@@ -2,24 +2,6 @@ import {load} from 'cheerio'
 
 export type Content<T> = {ok: true; data: T} | {ok: false; error: string}
 
-export type SearchResult = {
-  title: string; 
-  author: string; 
-  des: string; 
-  href: string;
-}
-
-export type Chapter = {
-  href: string;
-  title: string;
-}
-
-export type ChapterContent = {
-  title: string;
-  text: string;
-  isLastChapter: boolean;
-}
-
 const BaseURL = 'https://www.bqg99.com'
 
 const handleSuccess = <T>(data: T) => {
@@ -42,6 +24,13 @@ const handleError = (args: {ok: true; res: Response} | {ok: false; error: unknow
       content: {ok: false, error},
     }
   }
+}
+
+export type SearchResult = {
+  title: string; 
+  author: string; 
+  des: string; 
+  href: string;
 }
 
 export const getSearchData = async (q = '') => {
@@ -92,6 +81,11 @@ export const getSearchData = async (q = '') => {
   }
 }
 
+export type Chapter = {
+  href: string;
+  title: string;
+}
+
 export const getChapterListData = async (id: string) => {
   try {
     const res = await fetch(`${BaseURL}/book/${id}`)
@@ -120,6 +114,12 @@ export const getChapterListData = async (id: string) => {
   }
 }
 
+export type ChapterContent = {
+  title: string;
+  text: string;
+  isLastChapter: boolean;
+}
+
 export const getChapterContentData = async (bookId: string, chapterId: string) => {
   try {
     const res = await fetch(`${BaseURL}/book/${bookId}/${chapterId}.html`)
@@ -146,3 +146,40 @@ export const getChapterContentData = async (bookId: string, chapterId: string) =
     return handleError({ok: false, error}) 
   }
 } 
+
+export type Teleplay = {
+  title: string;
+  href: string;
+}
+
+// /riju  /hanju
+export type TeleplayType = 'riju' | 'hanju'
+
+export const getTeleplayList = async (type: TeleplayType, index = 1) => {
+  const suffix = index === 1 ? 'index.html' : `index_${index}.html`
+
+  try {
+    const res = await fetch(`https://www.y3600.cz/${type}/${suffix}`)
+    if (res.ok) {
+      const rawData = await res.text()
+
+      const data: Teleplay[] = []
+
+      const $ = load(rawData)
+
+      $('.img.playico').each((_index, item) => {
+        const a = $(item)
+        data.push({
+          title: a.attr('title')!,
+          href: a.attr('href')!,
+        })
+      })
+
+      return handleSuccess(data)
+    } else {
+      return handleError({ok: true, res})
+    }
+  } catch (error) {
+    return handleError({ok: false, error})
+  }
+}

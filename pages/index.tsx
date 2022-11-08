@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { Box, Wrap, WrapItem, Center, Container } from '@chakra-ui/react'
+import { getTeleplayList, Teleplay, Content } from '@/request'
 
 
 // const breakpoints = {
@@ -22,8 +23,8 @@ import { Box, Wrap, WrapItem, Center, Container } from '@chakra-ui/react'
 const TestW = ['100%', '50%', '33.3%']
 
 
-const Home: NextPage = () => {
-
+const Home: NextPage<{content: Content<Teleplay>}> = ({content}) => {
+  console.log(content)
   return (
     <Box minH="100vh">
       <Container maxW="800px">
@@ -53,6 +54,12 @@ const Home: NextPage = () => {
       </Container>
     </Box>
   )
+}
+
+export const getServerSideProps = async () => {
+  const data = await getTeleplayList('riju')
+
+  return data
 }
 
 
