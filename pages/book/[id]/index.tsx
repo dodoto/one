@@ -1,7 +1,8 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, Text, Heading, Center, Link, Table, Tr, Td, Tbody, useMediaQuery } from '@chakra-ui/react'
+import { Container, Heading, Center, Link, Table, Tr, Td, Tbody, useMediaQuery } from '@chakra-ui/react'
 import { getChapterListData, Chapter, Content } from '@/request'
 import { FC } from 'react'
+import { ErrorAlert } from '@/components'
 
 type BookContent = Content<Chapter[]>
 
@@ -14,7 +15,7 @@ const Book: NextPage<{content: BookContent}> = ({content}) => {
       {
         content.ok ?
         <ChapterList data={content.data}/> :
-        <Text>{content.error}</Text>
+        <ErrorAlert message={content.error}/>
       }
     </Container>
   )

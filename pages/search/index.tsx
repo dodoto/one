@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react'
 import { FC } from 'react';
 import { getSearchData, SearchResult, Content } from '@/request'
+import { ErrorAlert } from '@/components'
 
 
 type SearchContent = Content<SearchResult[]>
@@ -30,7 +31,7 @@ const Search: NextPage<{content: SearchContent}> = ({content}) => {
         </FormControl>
       </Box>
       {
-        content.ok ? <SearchResultList data={content.data} /> : <Text>{content.error }</Text>
+        content.ok ? <SearchResultList data={content.data} /> : <ErrorAlert message={content.error}/>
       }
     </Container>
   )

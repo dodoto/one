@@ -18,6 +18,7 @@
     "paths": {
       "@/request": ["request/index"],
       "@/styles": ["styles/index"],
+      "@/components": ["components/index"],
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

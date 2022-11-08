@@ -11,6 +11,7 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { getChapterContentData, Content, ChapterContent } from '@/request'
+import { ErrorAlert } from '@/components'
 
 const Chapter: NextPage<{content: Content<ChapterContent>}> = ({content}) => {
 
@@ -31,10 +32,10 @@ const Chapter: NextPage<{content: Content<ChapterContent>}> = ({content}) => {
     push(`${baseUrl}/${chapterNo + 1}`)
   }
 
-
-  if (content.ok) {
-    return (
-      <Container maxW="800px">
+  return (
+    <Container maxW="800px">
+      {
+        content.ok ?
         <Box pt="8" pb="8" pl="2" pr="2">
           <VStack spacing="4">
             <Center>
@@ -49,14 +50,11 @@ const Chapter: NextPage<{content: Content<ChapterContent>}> = ({content}) => {
               <Button onClick={toNext} disabled={!content.data.isLastChapter}>下一章</Button>
             </ButtonGroup>
           </VStack>
-        </Box>
-      </Container>
-    )
-  } else {
-    return (
-      <Text>{content.error }</Text>
-    )
-  }
+        </Box> :
+        <ErrorAlert message={content.error}/>
+      }
+    </Container>
+  )
 }
 
 export const getServerSideProps = async ({query}: NextPageContext) => {
