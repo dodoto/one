@@ -153,13 +153,15 @@ export type Teleplay = {
 }
 
 // /riju  /hanju
+const TeleplayBaseURL = 'https://www.y3600.cz/'
+
 export type TeleplayType = 'riju' | 'hanju'
 
-export const getTeleplayList = async (type: TeleplayType, index = 1) => {
-  const suffix = index === 1 ? 'index.html' : `index_${index}.html`
+export const getTeleplayList = async (type: TeleplayType, index = '1') => {
+  const suffix = index === '1' ? 'index.html' : `index_${index}.html`
 
   try {
-    const res = await fetch(`https://www.y3600.cz/${type}/${suffix}`)
+    const res = await fetch(`${TeleplayBaseURL}${type}/${suffix}`)
     if (res.ok) {
       const rawData = await res.text()
 
@@ -176,6 +178,24 @@ export const getTeleplayList = async (type: TeleplayType, index = 1) => {
       })
 
       return handleSuccess(data)
+    } else {
+      return handleError({ok: true, res})
+    }
+  } catch (error) {
+    return handleError({ok: false, error})
+  }
+}
+
+export const getTeleplayEpisodeList = async (href: string) => {
+  try {
+    const res = await fetch(`${TeleplayBaseURL}${href}`)
+
+    if (res.ok) {
+      const rawData = await res.text()
+
+      console.log(rawData)
+
+      return handleSuccess([])
     } else {
       return handleError({ok: true, res})
     }
