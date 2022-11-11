@@ -1,5 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, Wrap, WrapItem, Center } from '@chakra-ui/react'
+import { Container, Wrap, WrapItem } from '@chakra-ui/react'
 import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
 import { ErrorAlert } from '@/components'
 import 'video.js/dist/video-js.css'
@@ -25,13 +25,14 @@ const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void
       {
         data.map((episode, index) => (
           <WrapItem 
+            // variant="bg-primary"
             key={index} 
             cursor="pointer"
             width="50%" 
             justifyContent="center" 
             py="1"
             borderRadius="5px"
-            _hover={{backgroundColor: 'ButtonHighlight'}} 
+            _hover={{backgroundColor: 'brand.100'}} 
             data-source={episode.href}
             onClick={() => onEpisodeClick(index)}>
             {episode.title}

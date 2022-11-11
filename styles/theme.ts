@@ -1,17 +1,15 @@
-import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react'
+import { extendTheme, StyleFunctionProps, withDefaultColorScheme } from '@chakra-ui/react'
 
-// export const ColorTheme = extendTheme({
-//   colors: {
-//     brand: {
-//       50: '#f7fafc',
-//       100: 'blue',
-//       500: '#718096',
-//       900: '#171923',
-//     }
-//   }
-// }, withDefaultColorScheme({
-//   colorScheme: 'brand',
-// }))
-export const ColorTheme = extendTheme({})
+export const ColorTheme = extendTheme({
+  semanticTokens: {
+    colors: {
+      primary: {
+        default: 'blue.300',
+        _dark: 'blue.200',
+      },
+    },
+  },
+})
+// export const ColorTheme = extendTheme({})
 
 
