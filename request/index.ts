@@ -173,7 +173,7 @@ export const getTeleplayList = async (type: TeleplayType, index = '1') => {
         const a = $(item)
         data.push({
           title: a.attr('title')!,
-          href: a.attr('href')!,
+          href: `/teleplay/play/${a.attr('href')!.slice(0, -5)}`, // remove .html
         })
       })
 
@@ -186,6 +186,16 @@ export const getTeleplayList = async (type: TeleplayType, index = '1') => {
   }
 }
 
+const parsePlaySorce = (source: string) => {
+  return decodeURIComponent(
+    source
+    .split('(')[1]
+    .split(',')[0]
+    .replace(/\^/g, '%')
+    .replace(/'/g, '')
+  )
+}
+
 export const getTeleplayEpisodeList = async (href: string) => {
   try {
     const res = await fetch(`${TeleplayBaseURL}${href}`)
@@ -193,9 +203,18 @@ export const getTeleplayEpisodeList = async (href: string) => {
     if (res.ok) {
       const rawData = await res.text()
 
-      console.log(rawData)
+      const data: Teleplay[] = []
 
-      return handleSuccess([])
+      const $ = load(rawData)
+
+      $('div > .order7 > li > a').each((_index, item) => {
+        const a = $(item)
+        data.push({
+          title: a.attr('title')!,
+          href: parsePlaySorce(a.attr('onclick')!),
+        })
+      })
+      return handleSuccess(data)
     } else {
       return handleError({ok: true, res})
     }
