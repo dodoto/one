@@ -55,4 +55,25 @@ const Home: NextPage = () => {
   )
 }
 
+export const getServerSideProps = async () => {  
+  try {
+    // https://rsshub.justqyx.com/  504
+    // https://rss.injahow.cn/   504
+    // http://rsshub.cry33.com/  504 bilibili ok
+    // https://rsshub.uneasy.win/ 503 bilibili ok
+    // need RssHub
+    const res = await fetch('https://rsshub.uneasy.win/bilibili/user/video/2267573')
+    const data = await res.text()
+    console.log('data', data)
+
+  } catch (error) {
+    console.log('error', error)
+  }
+  return {
+    props: {
+      data: {}
+    }
+  }
+}
+
 export default Home
