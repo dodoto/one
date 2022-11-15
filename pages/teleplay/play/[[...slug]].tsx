@@ -1,5 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, Wrap, WrapItem } from '@chakra-ui/react'
+import { Container, SimpleGrid, Box } from '@chakra-ui/react'
 import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
 import { ErrorAlert } from '@/components'
 import 'video.js/dist/video-js.css'
@@ -21,28 +21,26 @@ const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => 
 
 const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void}> = memo(({data, onEpisodeClick}) => {
   return (
-    <Wrap spacing="0" py="2">
+    <SimpleGrid py="2" columns={[1, 2, 3]}>
       {
         data.map((episode, index) => (
-          <WrapItem 
-            // variant="bg-primary"
+          <Box 
             key={index} 
             cursor="pointer"
-            width="50%" 
             justifyContent="center" 
             py="1"
             borderRadius="5px"
-            _hover={{backgroundColor: 'brand.100'}} 
+            _hover={{backgroundColor: 'primary'}} 
             data-source={episode.href}
             onClick={() => onEpisodeClick(index)}>
             {episode.title}
-          </WrapItem>
+          </Box>
         ))
       }
-      <WrapItem width="30%"/>
-      <WrapItem width="30%"/>
-      <WrapItem width="30%"/>
-    </Wrap>
+      <Box width="30%"/>
+      <Box width="30%"/>
+      <Box width="30%"/>
+    </SimpleGrid>
   )
 })
 
