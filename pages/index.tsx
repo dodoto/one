@@ -62,9 +62,9 @@ export const getServerSideProps = async () => {
     // http://rsshub.cry33.com/  504 bilibili ok
     // https://rsshub.uneasy.win/ 503 bilibili ok
     // need RssHub
-    const res = await fetch('https://rsshub.uneasy.win/bilibili/user/video/2267573')
-    const data = await res.text()
-    console.log('data', data)
+    // const res = await fetch('https://rsshub.uneasy.win/bilibili/user/video/2267573')
+    // const data = await res.text()
+    // console.log('data', data)
 
   } catch (error) {
     console.log('error', error)
