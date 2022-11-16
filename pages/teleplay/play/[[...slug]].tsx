@@ -19,9 +19,13 @@ const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => 
   )
 }
 
-const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void}> = memo(({data, onEpisodeClick}) => {
+const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void, activeIndex: number}> = memo(({
+  data, 
+  onEpisodeClick, 
+  activeIndex,
+}) => {
   return (
-    <SimpleGrid py="2" columns={[1, 2, 3]}>
+    <SimpleGrid py="2" columns={[1, 2, 3]} gap="2">
       {
         data.map((episode, index) => (
           <Box 
@@ -30,6 +34,7 @@ const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void
             justifyContent="center" 
             py="1"
             borderRadius="5px"
+            bg={index === activeIndex ? 'primary' : 'unset'} 
             _hover={{backgroundColor: 'primary'}} 
             data-source={episode.href}
             onClick={() => onEpisodeClick(index)}>
@@ -37,9 +42,6 @@ const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void
           </Box>
         ))
       }
-      <Box width="30%"/>
-      <Box width="30%"/>
-      <Box width="30%"/>
     </SimpleGrid>
   )
 })
@@ -56,12 +58,12 @@ const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
   return (
     <>
       <Video 
-        width="800"
+        width="768"
         height="400"
         controls 
         autoPlay
       />
-      <EpisodeList data={sources} onEpisodeClick={handleEpisodeClick}/>
+      <EpisodeList data={sources} onEpisodeClick={handleEpisodeClick} activeIndex={index}/>
     </>
   )
 }
