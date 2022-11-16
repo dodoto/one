@@ -34,8 +34,9 @@ const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void
             justifyContent="center" 
             py="1"
             borderRadius="5px"
-            bg={index === activeIndex ? 'primary' : 'unset'} 
-            _hover={{backgroundColor: 'primary'}} 
+            bg={index === activeIndex ? 'primary' : 'unset'}
+            color={index === activeIndex ? 'white' : 'unset'} 
+            _hover={{backgroundColor: 'primary', color: 'white'}} 
             data-source={episode.href}
             onClick={() => onEpisodeClick(index)}>
             {episode.title}

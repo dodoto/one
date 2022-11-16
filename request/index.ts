@@ -199,7 +199,6 @@ const parsePlaySorce = (source: string) => {
 export const getTeleplayEpisodeList = async (href: string) => {
   try {
     const res = await fetch(`${TeleplayBaseURL}${href}`)
-
     if (res.ok) {
       const rawData = await res.text()
 
@@ -207,13 +206,14 @@ export const getTeleplayEpisodeList = async (href: string) => {
 
       const $ = load(rawData)
 
-      $('div > .order7 > li > a').each((_index, item) => {
+      $('#playlist > div > ul li a').each((_index, item) => {
         const a = $(item)
         data.push({
           title: a.attr('title')!,
           href: parsePlaySorce(a.attr('onclick')!),
         })
       })
+
       return handleSuccess(data)
     } else {
       return handleError({ok: true, res})
