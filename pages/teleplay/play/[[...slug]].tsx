@@ -1,5 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, SimpleGrid, Box } from '@chakra-ui/react'
+import { Container, SimpleGrid, Box, AspectRatio } from '@chakra-ui/react'
 import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
 import { ErrorAlert } from '@/components'
 import 'video.js/dist/video-js.css'
@@ -58,15 +58,20 @@ const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
   const { Video } = useVideoJS({ sources: [{ src }] })
   return (
     <>
+    <AspectRatio maxW="768px" ratio={16/9}>
       <Video 
         style={{
-          width: '100%', 
-          maxWidth: '768px',
-          aspectRatio: 4/3,
+          width: '100%',
+          height: '100%',
+          // width: '100%', 
+          // maxWidth: '768px',
+          // // aspectRatio: 16/9,
+          // height: '400px',
         }}
         controls 
         autoPlay
       />
+      </AspectRatio>
       <EpisodeList data={sources} onEpisodeClick={handleEpisodeClick} activeIndex={index}/>
     </>
   )
