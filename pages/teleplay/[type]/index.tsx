@@ -1,5 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, Wrap, WrapItem, Link } from '@chakra-ui/react'
+import { Container, SimpleGrid, Box, Link } from '@chakra-ui/react'
 import { getTeleplayList, Teleplay, Content, TeleplayType } from '@/request'
 import { ErrorAlert } from '@/components'
 import { FC } from 'react'
@@ -18,15 +18,15 @@ const Teleplay: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
 
 const TeleplayList: FC<{data: Teleplay[]}> = ({data}) => {
   return (
-    <Wrap>
+    <SimpleGrid py="2" columns={[1, 2, 3]} gap="2">
       {
         data.map(item => (
-          <WrapItem key={item.href}>
+          <Box key={item.href}>
             <Link href={item.href}>{item.title}</Link>
-          </WrapItem>
+          </Box>
         ))
       }
-    </Wrap>
+    </SimpleGrid>
   )
 }
 

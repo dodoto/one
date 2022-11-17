@@ -9,7 +9,7 @@ import { FC, memo, useState, useCallback } from 'react'
 
 const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
   return (
-    <Container maxW="800px">
+    <Container maxW="800px" position="relative">
       {
         content.ok ?
         <Player sources={content.data}/> :
@@ -59,8 +59,11 @@ const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
   return (
     <>
       <Video 
-        width="768"
-        height="400"
+        style={{
+          width: '100%', 
+          maxWidth: '768px',
+          aspectRatio: 4/3,
+        }}
         controls 
         autoPlay
       />
