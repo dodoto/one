@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
-import Link from 'next/link'
-import { Box, Wrap, WrapItem, Center, Container } from '@chakra-ui/react'
+import { Box, Wrap, WrapItem, Link, Center, Container } from '@chakra-ui/react'
 
 
 
@@ -27,28 +26,17 @@ const Home: NextPage = () => {
   return (
     <Box minH="100vh">
       <Container maxW="800px">
-        <Link href="/search">搜索</Link>
         <Wrap spacing="0">
-          <WrapItem bg="red.200" w={TestW}> 
-            <Center>
-              box1
-            </Center>
+          <WrapItem bg="red.200" w={TestW} justifyContent="center" py="2"> 
+            <Link href="/search">搜索</Link>
           </WrapItem>
-          <WrapItem bg="green.200" w={TestW}>
-            <Center>
-              box2
-            </Center>
+          <WrapItem bg="green.200" w={TestW} justifyContent="center" py="2">
+            <Link href="/teleplay/riju">日剧</Link>
           </WrapItem>
-          <WrapItem bg="tomato" w={TestW}>
-            <Center>
-              box3
-            </Center>
+          <WrapItem bg="tomato" w={TestW} justifyContent="center" py="2">
+            <Link href="/teleplay/hanju">韩剧</Link>
           </WrapItem>
-          <WrapItem bg="blue.200" w={TestW}>
-            <Center>
-              box4
-            </Center>
-          </WrapItem>
+          <WrapItem bg="blue.200" w={TestW} justifyContent="center" py="2">box4</WrapItem>
         </Wrap>
       </Container>
     </Box>
