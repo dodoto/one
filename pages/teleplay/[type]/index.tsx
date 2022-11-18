@@ -18,10 +18,10 @@ const Teleplay: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
 
 const TeleplayList: FC<{data: Teleplay[]}> = ({data}) => {
   return (
-    <SimpleGrid py="2" columns={[1, 2, 3]} gap="2">
+    <SimpleGrid py="2" columns={[1, 2, 3]}>
       {
         data.map(item => (
-          <Box key={item.href}>
+          <Box key={item.href} p="2">
             <Link href={item.href}>{item.title}</Link>
           </Box>
         ))
