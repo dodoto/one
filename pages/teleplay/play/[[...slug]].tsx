@@ -1,6 +1,6 @@
 /* eslint-disable */
 import type { NextPage, NextPageContext } from 'next'
-import { Container, SimpleGrid, Box, AspectRatio } from '@chakra-ui/react'
+import { Container, SimpleGrid, Box, AspectRatio, Link } from '@chakra-ui/react'
 import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
 import { ErrorAlert } from '@/components'
 import 'video.js/dist/video-js.css'
@@ -13,7 +13,7 @@ const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => 
     <Container maxW="800px" position="relative">
       {
         content.ok ?
-        <Player sources={content.data}/> :
+        (content.data.length ? <Player sources={content.data}/> : <Box textAlign="center">暂无播放源</Box>) :
         <ErrorAlert message={content.error}/>
       }
     </Container>
