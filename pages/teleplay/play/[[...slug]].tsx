@@ -63,10 +63,6 @@ const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
         style={{
           width: '100%',
           height: '100%',
-          // width: '100%', 
-          // maxWidth: '768px',
-          // // aspectRatio: 16/9,
-          // height: '400px',
         }}
         controls 
         autoPlay
