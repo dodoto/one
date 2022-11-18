@@ -1,3 +1,4 @@
+/* eslint-disable */
 import type { NextPage, NextPageContext } from 'next'
 import { Container, SimpleGrid, Box, AspectRatio } from '@chakra-ui/react'
 import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
