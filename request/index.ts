@@ -2,7 +2,8 @@ import {load} from 'cheerio'
 
 export type Content<T> = {ok: true; data: T} | {ok: false; error: string}
 
-const BaseURL = 'https://www.bqg99.com'
+// 'https://www.bqg99.com'
+const BaseURL = 'https://www.biquge9.com'
 
 const handleSuccess = <T>(data: T) => {
   return  {
