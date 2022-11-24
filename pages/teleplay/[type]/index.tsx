@@ -1,5 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, SimpleGrid, Box, Link } from '@chakra-ui/react'
+import { Container, SimpleGrid, Link, useColorModeValue } from '@chakra-ui/react'
 import { getTeleplayList, Teleplay, Content, TeleplayType } from '@/request'
 import { ErrorAlert } from '@/components'
 import { FC } from 'react'
@@ -17,13 +17,19 @@ const Teleplay: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
 }
 
 const TeleplayList: FC<{data: Teleplay[]}> = ({data}) => {
+  const shadow = useColorModeValue('lg', 'dark-lg')
+
   return (
-    <SimpleGrid py="2" columns={[1, 2, 3]}>
+    <SimpleGrid py="2" columns={[1, 2, 3]} gap="2">
       {
         data.map(item => (
-          <Box key={item.href} p="2">
-            <Link href={item.href}>{item.title}</Link>
-          </Box>
+          <Link 
+            variant="teleplay"
+            _hover={{shadow}}
+            href={item.href} 
+            key={item.href}>
+            {item.title}
+          </Link>
         ))
       }
     </SimpleGrid>
