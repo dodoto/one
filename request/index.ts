@@ -1,4 +1,7 @@
 import {load} from 'cheerio'
+import { NextPageContext } from 'next'
+import querysting from 'querystring'
+import { FormData } from 'formdata-polyfill/esm.min.js'
 
 export type Content<T> = {ok: true; data: T} | {ok: false; error: string}
 
@@ -154,7 +157,7 @@ export type Teleplay = {
 }
 
 // /riju  /hanju
-const TeleplayBaseURL = 'https://www.y3600.cz/'
+export const TeleplayBaseURL = 'https://www.y3600.cz/'
 
 export type TeleplayType = 'riju' | 'hanju'
 
@@ -221,5 +224,53 @@ export const getTeleplayEpisodeList = async (href: string) => {
     }
   } catch (error) {
     return handleError({ok: false, error})
+  }
+}
+
+const parseBody = <T>(req: NextPageContext['req']): Promise<T> => {
+  return new Promise((resolve) => {
+    let data = ''
+    req?.once('data', (chunk) => {
+      data += chunk
+    })
+  
+    req?.once('end', () => {
+      data = decodeURI(data)
+      resolve(querysting.parse(data) as T)
+    })
+  })
+}
+
+type TeleplaySearchBody = {
+  keyboard: string
+  show: string
+  tempid: string
+  tbname: string
+}
+export const getTeleplaySearchData = async (req: NextPageContext['req']) => {
+  try {
+    const body = await parseBody<TeleplaySearchBody>(req)
+
+    if (body.keyboard) {
+      const searchForm = new FormData();
+      searchForm.append('keyboard', body.keyboard);
+      searchForm.append('show', 'title,keyboard');
+      searchForm.append('tempid', '1');
+      searchForm.append('tbname', 'news');
+
+
+      const res = await fetch(`${TeleplayBaseURL}e/search`, {
+        method: 'POST',
+        body: searchForm,
+      })
+  
+      const data = await res.text()
+  
+      // console.log('data', data)
+      return data
+    }
+    return body
+  } catch (error) {
+    console.log('error', error)
   }
 }

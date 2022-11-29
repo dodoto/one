@@ -1,4 +1,4 @@
-import { extendTheme, StyleFunctionProps } from '@chakra-ui/react'
+import { extendTheme, StyleFunctionProps, useColorModeValue } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 
 export const ColorTheme = extendTheme({
@@ -25,5 +25,10 @@ export const ColorTheme = extendTheme({
   },
 })
 // export const ColorTheme = extendTheme({})
+
+export const useShadow = () => {
+  const shadow = useColorModeValue('lg', 'dark-lg')
+  return shadow
+}
 
 

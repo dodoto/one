@@ -14,6 +14,7 @@ import {
 import { FC } from 'react';
 import { getSearchData, SearchResult, Content } from '@/request'
 import { ErrorAlert } from '@/components'
+import { useShadow } from '../../styles/theme'
 
 
 type SearchContent = Content<SearchResult[]>
@@ -38,12 +39,13 @@ const Search: NextPage<{content: SearchContent}> = ({content}) => {
 }
 
 const SearchResultList: FC<{data: SearchResult[]}> = ({data}) => {
+  const shadow = useShadow()
   if (data.length) {
     return (
       <List spacing="3" mt="10" mb="10">
         {
           data.map(item => (
-            <ListItem key={item.href} borderRadius="md" shadow="lg" p="4">
+            <ListItem key={item.href} borderRadius="md" shadow={shadow} p="4">
               <Link href={item.href}>
                 <Text>{item.title}</Text>
               </Link>

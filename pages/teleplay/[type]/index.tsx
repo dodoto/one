@@ -1,8 +1,9 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, SimpleGrid, Link, useColorModeValue } from '@chakra-ui/react'
+import { Container, SimpleGrid, Link } from '@chakra-ui/react'
 import { getTeleplayList, Teleplay, Content, TeleplayType } from '@/request'
 import { ErrorAlert } from '@/components'
 import { FC } from 'react'
+import { useShadow } from '../../../styles/theme'
 
 const Teleplay: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
   return (
@@ -17,7 +18,7 @@ const Teleplay: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
 }
 
 const TeleplayList: FC<{data: Teleplay[]}> = ({data}) => {
-  const shadow = useColorModeValue('lg', 'dark-lg')
+  const shadow = useShadow()
 
   return (
     <SimpleGrid py="2" columns={[1, 2, 3]} gap="2">
