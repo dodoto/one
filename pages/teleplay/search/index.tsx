@@ -1,5 +1,5 @@
 import type { NextPage, NextPageContext } from 'next'
-import { Container, Box, Input, FormControl, FormLabel, Button } from '@chakra-ui/react'
+import { Container, Box, Input, FormControl, FormLabel, Button, FormHelperText } from '@chakra-ui/react'
 import { getTeleplaySearchData, TeleplayBaseURL } from '@/request'
 
 const TeleplaySearch: NextPage<{data: any}> = ({data}) => {
@@ -16,6 +16,7 @@ const TeleplaySearch: NextPage<{data: any}> = ({data}) => {
             <Input name="tbname" value="news" hidden readOnly/> */}
             <Button type="submit">submit</Button>
           </form>
+          <FormHelperText>永远搜不到</FormHelperText>
         </FormControl>
       </Box>
       {/* {

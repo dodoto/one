@@ -247,29 +247,31 @@ type TeleplaySearchBody = {
   tempid: string
   tbname: string
 }
+// always not found 
 export const getTeleplaySearchData = async (req: NextPageContext['req']) => {
   try {
     const body = await parseBody<TeleplaySearchBody>(req)
-
+    console.log('body', body)
     if (body.keyboard) {
-      const searchForm = new FormData();
-      searchForm.append('keyboard', body.keyboard);
-      searchForm.append('show', 'title,keyboard');
-      searchForm.append('tempid', '1');
-      searchForm.append('tbname', 'news');
+      const searchForm = new FormData()
+      searchForm.append('keyboard', body.keyboard)
+      searchForm.append('show', 'title,keyboard')
+      searchForm.append('tempid', '1')
+      searchForm.append('tbname', 'news')
 
-
-      const res = await fetch(`${TeleplayBaseURL}e/search`, {
-        method: 'POST',
+      const res = await fetch(`${TeleplayBaseURL}e/search/index.php`, {
+        method: 'post',
         body: searchForm,
       })
-  
+      console.log('response', res.headers)
       const data = await res.text()
   
-      // console.log('data', data)
+      console.log('data', data)
+
+
       return data
     }
-    return body
+    return []
   } catch (error) {
     console.log('error', error)
   }
