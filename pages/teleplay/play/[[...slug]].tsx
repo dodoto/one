@@ -5,7 +5,7 @@ import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
 import { ErrorAlert } from '@/components'
 import 'video.js/dist/video-js.css'
 import { useVideoJS } from 'react-hook-videojs'
-import { FC, memo, useState, useCallback } from 'react'
+import { FC, memo, useState, useCallback, useRef, useEffect } from 'react'
 
 
 const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
@@ -48,26 +48,62 @@ const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void
   )
 })
 
+type History = {
+  title: string
+  date: number
+}
+
+// const HISTORY_KEY = 'history'
+
+// const getHistory = ():History[] => {
+//   const raw = localStorage.getItem(HISTORY_KEY)
+//   return raw ? JSON.parse(raw) : []
+// }
+
+// const setHistory = (history: any[]) => {
+//   localStorage.setItem(HISTORY_KEY, JSON.stringify(history))
+// }
+
+// const useHistory = () => {
+//   const ref = useRef<History []>([])
+
+//   useEffect(() => {
+//     const history = getHistory()
+//     ref.current = [...history, ...ref.current]
+//   }, [])
+//   return ref
+// }
+
 const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
   const [index, setIndex] = useState(0)
   const src = sources[index].href
+
+  const dot = useRef('..')
 
   const handleEpisodeClick = useCallback((i: number) => {
     setIndex(i)
   }, [])
 
-  const { Video } = useVideoJS({ sources: [{ src }] })
+  const { Video, ready } = useVideoJS({ sources: [{ src }] })
+
+  useEffect(() => {
+    if (ready) {
+      console.log(`播放第 ${index + 1} ${dot.current}`)
+      dot.current === '..' ? dot.current = '.' : dot.current = '..'
+    }
+  }, [ready, index])
+
   return (
     <>
-    <AspectRatio maxW="768px" ratio={16/9}>
-      <Video 
-        style={{
-          width: '100%',
-          height: '100%',
-        }}
-        controls 
-        autoPlay
-      />
+      <AspectRatio maxW="768px" ratio={16/9}>
+        <Video 
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          controls 
+          autoPlay
+        />
       </AspectRatio>
       <EpisodeList data={sources} onEpisodeClick={handleEpisodeClick} activeIndex={index}/>
     </>
