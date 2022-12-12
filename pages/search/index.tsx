@@ -11,7 +11,7 @@ import {
   ListItem,
   Link,
 } from '@chakra-ui/react'
-import { FC } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { getSearchData, SearchResult, Content } from '@/request'
 import { ErrorAlert } from '@/components'
 import { useShadow } from '../../styles/theme'
@@ -20,13 +20,19 @@ import { useShadow } from '../../styles/theme'
 type SearchContent = Content<SearchResult[]>
 
 const Search: NextPage<{content: SearchContent}> = ({content}) => {
+  const inputRef = useRef<HTMLInputElement>(null)
+  const shadow = useShadow()
+
+  useEffect(() => {
+    inputRef.current!.focus()
+  }, [])
   return (    
     <Container maxW="500px" _before={{content: `""`, display: 'table'}}>
-      <Box p="4" shadow="md" borderRadius="md" mt="10">
+      <Box p="4" shadow={shadow} borderRadius="md" mt="10">
         <FormControl>
           <form autoComplete="off">
             <FormLabel>搜索</FormLabel>
-            <Input name="q"/>
+            <Input name="q" ref={inputRef}/>
             <FormHelperText>只支持标题搜索</FormHelperText>
           </form>
         </FormControl>

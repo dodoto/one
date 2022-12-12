@@ -3,24 +3,25 @@ import { mode } from '@chakra-ui/theme-tools'
 
 export const ColorTheme = extendTheme({
   styles: {
-    global: {
+    global: (props: StyleFunctionProps) => ({
       '::-webkit-scrollbar': {
         width: '8px',
+        height: '8px',
       },
       
       '::-webkit-scrollbar-thumb': {
-        backgroundColor: 'rgb(205, 205, 205)',
+        backgroundColor: mode('rgb(205, 205, 205)', 'rgb(166, 166, 166)')(props),
       },
       
       '::-webkit-scrollbar-thumb:hover': {
-        backgroundColor: 'rgb(166, 166, 166)',
+        backgroundColor: mode('rgb(114, 116, 123)', 'rgb(95, 97, 104)')(props),
       },
       
       '*': {
         scrollbarWidth: 'thin',
-        scrollbarColor: 'dark',
+        scrollbarColor: mode('dark', 'light')(props),
       },
-    }
+    }),
   },
   components: {
     'Link': {
