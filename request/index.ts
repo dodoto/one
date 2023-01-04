@@ -276,3 +276,43 @@ export const getTeleplaySearchData = async (req: NextPageContext['req']) => {
     console.log('error', error)
   }
 }
+
+// https://rsshub.justqyx.com/
+// https://rss.injahow.cn/  
+// https://rsshub.uneasy.win/
+const RssBaseURL = 'https://rsshub.uneasy.win/'
+const MingbaoURL = 'mingpao/ins/all'
+
+// type RssDataItem = {
+//   title: string;
+//   description: string;
+//   date: string;
+//   author: string;
+//   link: string;
+// }
+
+
+export const getCool18SearchData = async () => {
+  try {
+    const res = await fetch(`${RssBaseURL}${MingbaoURL}`)
+
+    if (res.ok) {
+      const rawData = await res.text()
+
+      const $ = load(rawData)
+
+      const data: any[] = []
+      
+      $('item').each((index, item) => {
+        // console.log($(item).html()!.replace(']]&gt;', ''))
+        data.push($(item).html()!)
+      })
+
+      return handleSuccess(data)
+    } else {
+      return handleError({ok: true, res})
+    }
+  } catch (error) {
+    return handleError({ok: false, error})
+  }
+}

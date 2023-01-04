@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
-import { Box, Wrap, WrapItem, Link, Center, Container } from '@chakra-ui/react'
-
+import { Box, Wrap, WrapItem, Link, Container, Divider } from '@chakra-ui/react'
+import { getCool18SearchData } from '../request'
+import { FC } from 'react'
 
 
 // const breakpoints = {
@@ -19,48 +20,62 @@ import { Box, Wrap, WrapItem, Link, Center, Container } from '@chakra-ui/react'
 //   '2xl': '33.3%',
 // }
 
-const TestW = ['100%', '50%', '33.3%']
+const Breakpoints = ['100%', '50%', '33.3%']
 
+const NavData = [
+  {title: '笔趣阁搜索', href: '/search'},
+  {title: '日剧', href: '/teleplay/riju'},
+  {title: '韩剧', href: '/teleplay/hanju'},
+  {title: '泰剧', href: '/teleplay/taiju'},
+  {title: '韩国综艺', href: '/teleplay/hanguozongyi'},
+  {title: '网剧', href: '/teleplay/wangluoju'},
+]
 
-const Home: NextPage = () => {
+type Content = {ok: true; data: any} | {ok: false; error: any}
+
+const Card: FC<{content: string, index: number, total: number}> = ({content, index, total}) => {
+  return (
+    <>
+      <Box px="4" py="8">
+        <Box dangerouslySetInnerHTML={{__html: content}}/>
+      </Box>
+      {index !== total - 1 && <Divider/>} 
+    </>
+  )
+}
+
+const Home: NextPage<{content: Content}> = ({content}) => {
+  console.log(content)
   return (
     <Box minH="100vh">
       <Container maxW="800px">
         <Wrap spacing="0">
-          <WrapItem bg="red.200" w={TestW} justifyContent="center" py="2"> 
-            <Link href="/search">搜索</Link>
-          </WrapItem>
-          <WrapItem bg="green.200" w={TestW} justifyContent="center" py="2">
-            <Link href="/teleplay/riju">日剧</Link>
-          </WrapItem>
-          <WrapItem bg="tomato" w={TestW} justifyContent="center" py="2">
-            <Link href="/teleplay/hanju">韩剧</Link>
-          </WrapItem>
-          <WrapItem bg="blue.200" w={TestW} justifyContent="center" py="2">box4</WrapItem>
+          {
+            NavData.map(nav => (
+              <WrapItem key={nav.href} w={Breakpoints} justifyContent="center" py="2"> 
+                <Link href={nav.href}>{nav.title}</Link>
+              </WrapItem>
+            ))
+          }
         </Wrap>
+          {
+            content.ok ? 
+            content.data.map((item: string, index: number) => (
+              <Card 
+                key={index}
+                index={index}
+                total={content.data.length} 
+                content={item}/>
+            )) : 
+            content.error
+          }
       </Container>
     </Box>
   )
 }
 
 export const getServerSideProps = async () => {  
-  try {
-    // https://rsshub.justqyx.com/  504
-    // https://rss.injahow.cn/   504
-    // http://rsshub.cry33.com/  504 bilibili ok
-    // https://rsshub.uneasy.win/ 503 bilibili ok
-    // need RssHub
-    // const res = await fetch('https://rsshub.uneasy.win/bilibili/user/video/2267573')
-    // const data = await res.text()
-    // console.log('data', data)
-  } catch (error) {
-    console.log('error', error)
-  }
-  return {
-    props: {
-      data: {}
-    }
-  }
+  return await getCool18SearchData()
 }
 
 export default Home
