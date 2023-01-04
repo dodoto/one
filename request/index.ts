@@ -305,7 +305,7 @@ export const getCool18SearchData = async () => {
       
       $('item').each((index, item) => {
         // console.log($(item).html()!.replace(']]&gt;', ''))
-        data.push($(item).html()!)
+        data.push($(item).html()!.replaceAll(']]&gt;', ''))
       })
 
       return handleSuccess(data)
