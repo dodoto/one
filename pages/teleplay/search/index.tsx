@@ -3,7 +3,7 @@ import { Container, Box, Input, FormControl, FormLabel, Button, FormHelperText }
 import { getTeleplaySearchData, TeleplayBaseURL } from '@/request'
 
 const TeleplaySearch: NextPage<{data: any}> = ({data}) => {
-  console.log(data)
+  // console.log(data)
   return (
     <Container maxW="500px" _before={{content: `""`, display: 'table'}}>
       <Box p="4" shadow="md" borderRadius="md" mt="10">

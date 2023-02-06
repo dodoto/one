@@ -2943,11 +2943,6 @@ react-focus-lock@^2.9.1:
     use-callback-ref "^1.3.0"
     use-sidecar "^1.1.2"
 
-react-hook-form@^7.38.0:
-  version "7.38.0"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.38.0.tgz#53d6a68df587ce4ce88352f63e0ecc7fc8779320"
-  integrity sha512-gxWW1kMeru9xR1GoR+Iw4hA+JBOM3SHfr4DWCUKY0xc7Vv1MLsF109oHtBeWl9shcyPFx67KHru44DheN0XY5A==
-
 react-hook-videojs@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/react-hook-videojs/-/react-hook-videojs-3.0.2.tgz#270b6a58119147f6e24b642887f3f6618338fd3f"

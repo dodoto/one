@@ -46,25 +46,23 @@ const Search: NextPage<{content: SearchContent}> = ({content}) => {
 
 const SearchResultList: FC<{data: SearchResult[]}> = ({data}) => {
   const shadow = useShadow()
-  if (data.length) {
-    return (
-      <List spacing="3" mt="10" mb="10">
-        {
-          data.map(item => (
-            <ListItem key={item.href} borderRadius="md" shadow={shadow} p="4">
-              <Link href={item.href}>
-                <Text>{item.title}</Text>
-              </Link>
-              <Text>{item.author}</Text>
-              <Text>{item.des}</Text>
-            </ListItem>
-          ))
-        }
-      </List>
-    )
-  } else {
-    return null
-  }
+  return (
+    <List spacing="3" mt="10" mb="10">
+      {
+        data.length > 0 ?
+        data.map(item => (
+          <ListItem key={item.href} borderRadius="md" shadow={shadow} p="4">
+            <Link href={item.href}>
+              <Text>{item.title}</Text>
+            </Link>
+            <Text>{item.author}</Text>
+            <Text>{item.des}</Text>
+          </ListItem>
+        )) :
+        <Text textAlign="center">No Data</Text>
+      }
+    </List>
+  )
 }
 
 

@@ -45,7 +45,7 @@ const Card: FC<{content: string, index: number, total: number}> = ({content, ind
 }
 
 const Home: NextPage<{content: Content}> = ({content}) => {
-  console.log(content)
+  // console.log(content)
   return (
     <Box minH="100vh">
       <Container maxW="800px">
@@ -58,7 +58,7 @@ const Home: NextPage<{content: Content}> = ({content}) => {
             ))
           }
         </Wrap>
-          {
+          {/* {
             content.ok ? 
             content.data.map((item: string, index: number) => (
               <Card 
@@ -68,14 +68,19 @@ const Home: NextPage<{content: Content}> = ({content}) => {
                 content={item}/>
             )) : 
             content.error
-          }
+          } */}
       </Container>
     </Box>
   )
 }
 
 export const getServerSideProps = async () => {  
-  return await getCool18SearchData()
+  // return await getCool18SearchData()
+  return {
+    props: {
+      content: {ok: false, error: 'no error'}
+    }
+  }
 }
 
 export default Home
