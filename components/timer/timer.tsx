@@ -65,7 +65,7 @@ const Count: FC<{max?: number, min?: number, count?: number}> = memo(({ max = 9,
   )
 })
 
-export const Timer = () => {
+export const Timer: FC = () => {
   const [counts, setCounts] = useState(getCount())
 
   const maxUnitH = counts[0] === 2 ? 3 : 9
