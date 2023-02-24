@@ -1,17 +1,21 @@
 import type { NextPage } from 'next'
 // import { Box } from '@chakra-ui/react'
-// import { useEditor, EditorContent } from '@tiptap/react'
-// import { StarterKit } from '@tiptap/starter-kit'
+import { useEditor, EditorContent } from '@tiptap/react'
+import { StarterKit } from '@tiptap/starter-kit'
 
 const TipTapEditor: NextPage = () => {
-  // const editor = useEditor({
-  //   extensions: [
-  //     StarterKit,
-  //   ],
-  //   content: '<p>tiptap editor</p>',
-  // })
+  const editor = useEditor({
+    extensions: [
+      StarterKit,
+    ],
+    content: '<p>tiptap editor</p>',
+  })
+
+  return <EditorContent 
+          editor={editor}
+          style={{minHeight: '100vh'}}/>
   // console.log(editor, EditorContent)
-  return <h1>tiptap editor</h1>
+  // return <h1>tiptap editor</h1>
 }
 
 

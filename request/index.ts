@@ -277,10 +277,15 @@ export const getTeleplaySearchData = async (req: NextPageContext['req']) => {
   }
 }
 
-// https://rsshub.justqyx.com/
-// https://rss.injahow.cn/  
-// https://rsshub.uneasy.win/
-const RssBaseURL = 'https://rsshub.uneasy.win/'
+
+// const RssBaseURL = 'https://rsshub.uneasy.win/'
+
+const RssBaseURLs = [
+  'https://rsshub.justqyx.com/',
+  'https://rss.injahow.cn/',  
+  'https://rsshub.uneasy.win/',
+]
+
 const MingbaoURL = 'mingpao/ins/all'
 
 // type RssDataItem = {
@@ -291,8 +296,7 @@ const MingbaoURL = 'mingpao/ins/all'
 //   link: string;
 // }
 
-
-export const getCool18SearchData = async () => {
+export const getCool18SearchData = async (RssBaseURL = RssBaseURLs[0]) => {
   try {
     const res = await fetch(`${RssBaseURL}${MingbaoURL}`)
 
@@ -316,3 +320,34 @@ export const getCool18SearchData = async () => {
     return handleError({ok: false, error})
   }
 }
+
+// const getNext = async () => {
+//   const res = await getCool18SearchData();
+//   if (res.ok)
+// }
+
+// export const getCool18SearchData = async () => {
+//   try {
+//     const res = await fetch(`${RssBaseURL}${MingbaoURL}`)
+
+//     if (res.ok) {
+//       const rawData = await res.text()
+
+//       const $ = load(rawData)
+
+//       const data: any[] = []
+      
+//       $('item').each((index, item) => {
+//         // console.log($(item).html()!.replace(']]&gt;', ''))
+//         data.push($(item).html()!.replaceAll(']]&gt;', ''))
+//       })
+
+//       return handleSuccess(data)
+//     } else {
+//       return handleError({ok: true, res})
+//     }
+//   } catch (error) {
+//     return handleError({ok: false, error})
+//   }
+// }
+
