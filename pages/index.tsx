@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { Box, Wrap, WrapItem, Link, Container, Divider } from '@chakra-ui/react'
 import { getCool18SearchData } from '../request'
 import { FC } from 'react'
-import { Timer, InfScroller } from '@/components'
+import { SlideCountTimer, InfScroller } from '@/components'
 
 // const breakpoints = {
 //   sm: '30em',    480
@@ -70,7 +70,7 @@ const Home: NextPage<{content: Content}> = ({content}) => {
             content.error
           } */}
           <InfScroller buffer={2}/>
-          <Timer/>
+          <SlideCountTimer/>
       </Container>
     </Box>
   )

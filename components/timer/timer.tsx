@@ -22,7 +22,7 @@ const getCount = () => {
   return time
 }
 
-export const Timer: FC = () => {
+export const SlideCountTimer: FC = () => {
   const [counts, setCounts] = useState(getCount())
 
   const maxUnitH = counts[0] === 2 ? 3 : 9
