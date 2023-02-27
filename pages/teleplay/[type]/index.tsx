@@ -19,7 +19,6 @@ const Teleplay: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
 
 const TeleplayList: FC<{data: Teleplay[]}> = ({data}) => {
   const shadow = useShadow()
-
   return (
     <SimpleGrid py="2" columns={[1, 2, 3]} gap="2">
       {
@@ -38,9 +37,9 @@ const TeleplayList: FC<{data: Teleplay[]}> = ({data}) => {
 }
 
 export const getServerSideProps = async ({query}: NextPageContext) => {
-  const {type, index = '1'} = query
+  const {type} = query
 
-  const data = await getTeleplayList(type as TeleplayType, index as string)
+  const data = await getTeleplayList(type as TeleplayType)
   return data
 }
 

@@ -1,5 +1,5 @@
-import React, { FC, useState, useRef, useEffect, memo, useMemo } from 'react'
-import { Box, Flex } from '@chakra-ui/react'
+import React, { FC, useRef, useEffect, memo, useMemo } from 'react'
+import { Box } from '@chakra-ui/react'
 
 export const Count: FC<{max?: number, min?: number, count?: number}> = memo(({ max = 9, min = 0, count = 0 }) => {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -30,7 +30,7 @@ export const Count: FC<{max?: number, min?: number, count?: number}> = memo(({ m
       transform: `translateY(${translateY}px)`,
       transition: 'transform 0.3s',
     })
-  }, [count])
+  }, [count, max, min])
 
   return (
     <Box h="10" overflow="hidden">
@@ -44,3 +44,5 @@ export const Count: FC<{max?: number, min?: number, count?: number}> = memo(({ m
     </Box>
   )
 })
+
+Count.displayName = 'Count'

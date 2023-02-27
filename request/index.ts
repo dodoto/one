@@ -157,30 +157,37 @@ export type Teleplay = {
 }
 
 // /riju  /hanju
-export const TeleplayBaseURL = 'https://www.y3600.cz/'
+// export const TeleplayBaseURL = 'https://www.y3600.cz/'
+export const TeleplayBaseURL = 'https://www.y3600.net/'
 
-export type TeleplayType = 'riju' | 'hanju'
+export type TeleplayType = 'ribenju' | 'hanguoju' | 'taiguoju' | 'zongyi'
+// 在其他文件使用枚举会获得下面的错误
+// Module build failed: UnhandledSchemeError: Reading from "node:process" is not handled by plugins
+// export enum TestType {
+//   A = 'a',
+//   B = 'b',
+// }
 
-export const getTeleplayList = async (type: TeleplayType, index = '1') => {
-  const suffix = index === '1' ? 'index.html' : `index_${index}.html`
+export const getTeleplayList = async (type: TeleplayType) => {
 
   try {
-    const res = await fetch(`${TeleplayBaseURL}${type}/${suffix}`)
+    const res = await fetch(`${TeleplayBaseURL}${type}/`)
+    // console.log(res)
     if (res.ok) {
       const rawData = await res.text()
+      console.log(rawData)
 
       const data: Teleplay[] = []
 
       const $ = load(rawData)
 
-      $('.img.playico').each((_index, item) => {
+      $('.video-pic').each((_index, item) => {
         const a = $(item)
         data.push({
           title: a.attr('title')!,
-          href: `/teleplay/play/${a.attr('href')!.slice(0, -5)}`, // remove .html
+          href: `play${a.attr('href')!}`, // remove .html
         })
       })
-
       return handleSuccess(data)
     } else {
       return handleError({ok: true, res})
@@ -202,7 +209,7 @@ const parsePlaySorce = (source: string) => {
 
 export const getTeleplayEpisodeList = async (href: string) => {
   try {
-    const res = await fetch(`${TeleplayBaseURL}${href}`)
+    const res = await fetch(`https://y3600.net/${href}/`)
     if (res.ok) {
       const rawData = await res.text()
 
@@ -210,11 +217,11 @@ export const getTeleplayEpisodeList = async (href: string) => {
 
       const $ = load(rawData)
 
-      $('#playlist > div > ul li a').each((_index, item) => {
+      $('.playlist li a').each((_index, item) => {
         const a = $(item)
         data.push({
-          title: a.attr('title')!,
-          href: parsePlaySorce(a.attr('onclick')!),
+          title: a.text(),
+          href: a.attr('href')!,
         })
       })
 

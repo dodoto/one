@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import { Box, Wrap, WrapItem, Link, Container, Divider } from '@chakra-ui/react'
-import { getCool18SearchData } from '../request'
 import { FC } from 'react'
 import { SlideCountTimer, InfScroller } from '@/components'
 
@@ -24,11 +23,10 @@ const Breakpoints = ['100%', '50%', '33.3%']
 
 const NavData = [
   {title: '笔趣阁搜索', href: '/search'},
-  {title: '日剧', href: '/teleplay/riju'},
-  {title: '韩剧', href: '/teleplay/hanju'},
-  {title: '泰剧', href: '/teleplay/taiju'},
-  {title: '韩国综艺', href: '/teleplay/hanguozongyi'},
-  {title: '网剧', href: '/teleplay/wangluoju'},
+  {title: '日剧', href: `/teleplay/ribenju`},
+  {title: '韩剧', href: '/teleplay/hanguoju'},
+  {title: '泰剧', href: '/teleplay/taiguoju'},
+  {title: '综艺', href: '/teleplay/zongyi'},
 ]
 
 type Content = {ok: true; data: any} | {ok: false; error: any}

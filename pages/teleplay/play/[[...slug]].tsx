@@ -1,11 +1,11 @@
 /* eslint-disable */
 import type { NextPage, NextPageContext } from 'next'
-import { Container, SimpleGrid, Box, AspectRatio, Link } from '@chakra-ui/react'
+import { Container, SimpleGrid, Box, Link } from '@chakra-ui/react'
 import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
 import { ErrorAlert } from '@/components'
 import 'video.js/dist/video-js.css'
 import { useVideoJS } from 'react-hook-videojs'
-import { FC, memo, useState, useCallback, useRef, useEffect } from 'react'
+import { FC, memo } from 'react'
 
 
 const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => {
@@ -20,11 +20,7 @@ const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => 
   )
 }
 
-const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void, activeIndex: number}> = memo(({
-  data, 
-  onEpisodeClick, 
-  activeIndex,
-}) => {
+const EpisodeList: FC<{data: Teleplay[]}> = memo(({ data }) => {
   return (
     <SimpleGrid py="2" columns={[1, 2, 3]} gap="2">
       {
@@ -35,23 +31,17 @@ const EpisodeList: FC<{data: Teleplay[], onEpisodeClick: (index: number) => void
             justifyContent="center" 
             py="1"
             borderRadius="5px"
-            bg={index === activeIndex ? 'primary' : 'unset'}
-            color={index === activeIndex ? 'white' : 'unset'} 
-            _hover={{backgroundColor: 'primary', color: 'white'}} 
-            data-source={episode.href}
-            onClick={() => onEpisodeClick(index)}>
-            {episode.title}
+            textAlign="center"
+            // bg={index === activeIndex ? 'primary' : 'unset'}
+            // color={index === activeIndex ? 'white' : 'unset'} 
+            _hover={{backgroundColor: 'primary', color: 'white'}}>
+              <Link href={`https://y3600.net${episode}`} target="_blank">{episode.title}</Link>
           </Box>
         ))
       }
     </SimpleGrid>
   )
 })
-
-type History = {
-  title: string
-  date: number
-}
 
 // const HISTORY_KEY = 'history'
 
@@ -75,27 +65,23 @@ type History = {
 // }
 
 const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
-  const [index, setIndex] = useState(0)
-  const src = sources[index].href
 
-  const dot = useRef('..')
+  // const handleEpisodeClick = useCallback((i: number) => {
+  //   setIndex(i)
+  // }, [])
 
-  const handleEpisodeClick = useCallback((i: number) => {
-    setIndex(i)
-  }, [])
+  // const { Video, ready } = useVideoJS({ sources: [{ src }] })
 
-  const { Video, ready } = useVideoJS({ sources: [{ src }] })
-
-  useEffect(() => {
-    if (ready) {
-      console.log(`播放第 ${index + 1} ${dot.current}`)
-      dot.current === '..' ? dot.current = '.' : dot.current = '..'
-    }
-  }, [ready, index])
+  // useEffect(() => {
+  //   if (ready) {
+  //     console.log(`播放第 ${index + 1} ${dot.current}`)
+  //     dot.current === '..' ? dot.current = '.' : dot.current = '..'
+  //   }
+  // }, [ready, index])
 
   return (
     <>
-      <AspectRatio maxW="768px" ratio={16/9}>
+      {/* <AspectRatio maxW="768px" ratio={16/9}>
         <Video 
           style={{
             width: '100%',
@@ -104,8 +90,8 @@ const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
           controls 
           autoPlay
         />
-      </AspectRatio>
-      <EpisodeList data={sources} onEpisodeClick={handleEpisodeClick} activeIndex={index}/>
+      </AspectRatio> */}
+      <EpisodeList data={sources}/>
     </>
   )
 }
@@ -113,7 +99,8 @@ const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
 
 export const getServerSideProps = async ({query}: NextPageContext) => {
   const {slug} = query
-  const data = await getTeleplayEpisodeList(`${(slug as string[]).join('/')}.html`)
+  console.log(slug)
+  const data = await getTeleplayEpisodeList(`${(slug as string[]).join('/')}`)
   return data
 }
 
