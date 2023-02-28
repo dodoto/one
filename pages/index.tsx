@@ -27,6 +27,7 @@ const NavData = [
   {title: '韩剧', href: '/teleplay/hanguoju'},
   {title: '泰剧', href: '/teleplay/taiguoju'},
   {title: '综艺', href: '/teleplay/zongyi'},
+  {title: 'dot-line', href: '/dot-line'}
 ]
 
 type Content = {ok: true; data: any} | {ok: false; error: any}
