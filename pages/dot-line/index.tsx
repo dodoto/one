@@ -144,6 +144,7 @@ const DotLine = () => {
               transform={`translate(${viewport.x}, ${viewport.y})`}
               style={{cursor: 'pointer'}}
               {...circle}
+              key={circle.key}
               onMouseDown={() => handleItemMouseDown(circle)}
             ></circle>
           ))
