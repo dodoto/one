@@ -1,7 +1,9 @@
 import type { AppProps } from 'next/app'
 import { ChakraProvider, Box, IconButton, useColorMode } from '@chakra-ui/react'
 import { SunIcon, MoonIcon } from '@chakra-ui/icons'
+import { useRouter } from 'next/router' 
 import { ColorTheme } from 'styles/theme'
+import { BackHeader } from '@/components'
 
 const ThemeModeToggleButton = () => {
   const {colorMode, toggleColorMode} = useColorMode()
@@ -15,8 +17,10 @@ const ThemeModeToggleButton = () => {
 }
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter()
   return (
     <ChakraProvider theme={ColorTheme}>
+      {router.route !== '/' && <BackHeader/>}
       <Component {...pageProps}/>
       <ThemeModeToggleButton />
     </ChakraProvider>

@@ -4,7 +4,7 @@ import { Container, SimpleGrid, Box, Link } from '@chakra-ui/react'
 import { getTeleplayEpisodeList, Content, Teleplay } from '@/request'
 import { ErrorAlert } from '@/components'
 import 'video.js/dist/video-js.css'
-import { useVideoJS } from 'react-hook-videojs'
+// import { useVideoJS } from 'react-hook-videojs'
 import { FC, memo } from 'react'
 
 
@@ -13,7 +13,7 @@ const TeleplayDetail: NextPage<{content: Content<Teleplay[]>}> = ({content}) => 
     <Container maxW="800px" position="relative">
       {
         content.ok ?
-        (content.data.length ? <Player sources={content.data}/> : <Box textAlign="center">暂无播放源</Box>) :
+        (content.data.length ? <EpisodeList data={content.data}/> : <Box textAlign="center">暂无播放源</Box>) :
         <ErrorAlert message={content.error}/>
       }
     </Container>
@@ -35,7 +35,7 @@ const EpisodeList: FC<{data: Teleplay[]}> = memo(({ data }) => {
             // bg={index === activeIndex ? 'primary' : 'unset'}
             // color={index === activeIndex ? 'white' : 'unset'} 
             _hover={{backgroundColor: 'primary', color: 'white'}}>
-              <Link href={`https://y3600.net${episode}`} target="_blank">{episode.title}</Link>
+              <Link href={`https://y3600.net${episode.href}`} target="_blank">{episode.title}</Link>
           </Box>
         ))
       }
@@ -43,58 +43,37 @@ const EpisodeList: FC<{data: Teleplay[]}> = memo(({ data }) => {
   )
 })
 
-// const HISTORY_KEY = 'history'
+// const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
 
-// const getHistory = ():History[] => {
-//   const raw = localStorage.getItem(HISTORY_KEY)
-//   return raw ? JSON.parse(raw) : []
-// }
+//   const handleEpisodeClick = useCallback((i: number) => {
+//     setIndex(i)
+//   }, [])
 
-// const setHistory = (history: any[]) => {
-//   localStorage.setItem(HISTORY_KEY, JSON.stringify(history))
-// }
-
-// const useHistory = () => {
-//   const ref = useRef<History []>([])
+//   const { Video, ready } = useVideoJS({ sources: [{ src }] })
 
 //   useEffect(() => {
-//     const history = getHistory()
-//     ref.current = [...history, ...ref.current]
-//   }, [])
-//   return ref
+//     if (ready) {
+//       console.log(`播放第 ${index + 1} ${dot.current}`)
+//       dot.current === '..' ? dot.current = '.' : dot.current = '..'
+//     }
+//   }, [ready, index])
+
+//   return (
+//     <>
+//       <AspectRatio maxW="768px" ratio={16/9}>
+//         <Video 
+//           style={{
+//             width: '100%',
+//             height: '100%',
+//           }}
+//           controls 
+//           autoPlay
+//         />
+//       </AspectRatio>
+//       {/* <EpisodeList data={sources}/> */}
+//     </>
+//   )
 // }
-
-const Player: FC<{sources: Teleplay[]}> = ({sources}) => {
-
-  // const handleEpisodeClick = useCallback((i: number) => {
-  //   setIndex(i)
-  // }, [])
-
-  // const { Video, ready } = useVideoJS({ sources: [{ src }] })
-
-  // useEffect(() => {
-  //   if (ready) {
-  //     console.log(`播放第 ${index + 1} ${dot.current}`)
-  //     dot.current === '..' ? dot.current = '.' : dot.current = '..'
-  //   }
-  // }, [ready, index])
-
-  return (
-    <>
-      {/* <AspectRatio maxW="768px" ratio={16/9}>
-        <Video 
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          controls 
-          autoPlay
-        />
-      </AspectRatio> */}
-      <EpisodeList data={sources}/>
-    </>
-  )
-}
 
 
 export const getServerSideProps = async ({query}: NextPageContext) => {

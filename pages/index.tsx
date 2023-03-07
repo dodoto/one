@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
-import { Box, Wrap, WrapItem, Link, Container, Divider } from '@chakra-ui/react'
-import { FC } from 'react'
+import { Box, Wrap, WrapItem, Link, Container } from '@chakra-ui/react'
 import { SlideCountTimer, InfScroller } from '@/components'
 
 // const breakpoints = {
@@ -30,20 +29,7 @@ const NavData = [
   {title: 'dot-line', href: '/dot-line'}
 ]
 
-type Content = {ok: true; data: any} | {ok: false; error: any}
-
-const Card: FC<{content: string, index: number, total: number}> = ({content, index, total}) => {
-  return (
-    <>
-      <Box px="4" py="8">
-        <Box dangerouslySetInnerHTML={{__html: content}}/>
-      </Box>
-      {index !== total - 1 && <Divider/>} 
-    </>
-  )
-}
-
-const Home: NextPage<{content: Content}> = ({content}) => {
+const Home: NextPage = () => {
   // console.log(content)
   return (
     <Box minH="100vh">
@@ -57,17 +43,6 @@ const Home: NextPage<{content: Content}> = ({content}) => {
             ))
           }
         </Wrap>
-          {/* {
-            content.ok ? 
-            content.data.map((item: string, index: number) => (
-              <Card 
-                key={index}
-                index={index}
-                total={content.data.length} 
-                content={item}/>
-            )) : 
-            content.error
-          } */}
           <InfScroller buffer={2}/>
           <SlideCountTimer/>
       </Container>
@@ -75,13 +50,13 @@ const Home: NextPage<{content: Content}> = ({content}) => {
   )
 }
 
-export const getServerSideProps = async () => {  
-  // return await getCool18SearchData()
-  return {
-    props: {
-      content: {ok: false, error: 'no error'}
-    }
-  }
-}
+// export const getServerSideProps = async () => {  
+//   // return await getCool18SearchData()
+//   return {
+//     props: {
+//       content: {ok: false, error: 'no error'}
+//     }
+//   }
+// }
 
 export default Home
